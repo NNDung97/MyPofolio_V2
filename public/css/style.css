@@ -609,6 +609,11 @@ a {
   font-family: Arial, Helvetica, sans-serif;
   transition: 0.2s;
 }
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px #052631 inset !important;
+  -webkit-text-fill-color: #1C82AD !important;
+  transition: background-color 5000s ease-in-out 0s;
+}
 
 .input:focus {
   border: 1px solid #66da4300;
