@@ -86,7 +86,7 @@ const jsonData = {
         {"event": "update_profile", "timestamp": "2025-03-18T15:05:10Z"}
     ],
     "last_seen": null,
-    "description": "I don't know what to do with the above json so I leave it as a background"
+    "description": "Everything looked normal… Just a normal JSON background until you see this description.",
 };
 
 // Hàm tô màu JSON
