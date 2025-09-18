@@ -87,78 +87,85 @@ a {
 }
 
 .json-code {
-  display: flex;
-  color: #ffffff;
-  padding: 10px;
-  border-radius: 5px;
-  font-family: "Courier New", monospace;
-  font-size: 1.6em;
-  overflow: hidden;
-  display: flex;
-  justify-content: center;
+    display: flex;
+    justify-content: center;
+    color: #ffffff;
+    padding: 10px;
+    border-radius: 5px;
+    font-family: "Courier New", monospace;
+    font-size: 1.6em;
+    overflow: hidden;
+    /* Dùng Flexbox để căn giữa */
+    white-space: nowrap;
 }
+
 .key {
-  color: #7dd3fc;
+    color: #7dd3fc;
 }
 .string {
-  color: #ce9178;
+    color: #ce9178;
 }
-.bracket,.closing-bracket {
-  color: #a78bfa;
+.bracket, .closing-bracket {
+    color: #a78bfa;
 }
+
 .closing-bracket {
-  display: inline-block;
-  transform: translateX(0);
-  transition: transform 0.8s ease-in-out;
+    display: inline-block;
+    transform: translateX(0);
+    /* Gợi ý cho trình duyệt để tăng tốc phần cứng, làm animation mượt hơn */
+    will-change: transform;
+    transition: transform 0.8s ease-in-out;
 }
 
 .json-code:hover::after {
-  color: #a78bfa;
+    color: #a78bfa;
 }
+
 .cursor {
-  display: inline-block;
-  font-weight: bold;
-  font-size: 1em;
-  color: white;
-  animation: blink 0.8s infinite;
+    display: inline-block;
+    font-weight: bold;
+    font-size: 1em;
+    color: white;
+    animation: blink 0.8s infinite;
 }
 
 @keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
 }
 
 .spacing {
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 1s ease, visibility 0s linear 1.5s;
+    opacity: 0;
+    transition: opacity 0.3s ease;
 }
 
 .json-code:hover .spacing {
-  opacity: 1;
-  visibility: visible;
-  transition-delay: 0s;
+    opacity: 1;
+    transition-delay: 0.5s;
 }
 
 .json-code:hover .closing-bracket {
-  transform: translateX(18em);
+    transform: translateX(14.5em);
 }
 
 .json-code:not(:hover) .closing-bracket {
-  transform: translateX(0);
+    transform: translateX(0);
 }
 
 #role-section {
-  display: inline-block;
-  overflow: hidden;
-  width: 0;
-  white-space: nowrap;
-  transition: width 0.8s ease-in-out;
+    display: inline-block;
+    overflow: hidden;
+    width: 0;
+    white-space: nowrap;
+    /* Gợi ý cho trình duyệt để tăng tốc phần cứng */
+    will-change: width;
+    transition: width 0.8s ease-in-out;
 }
 
 .json-code:hover #role-section {
-  width: 20em;
+    width: 20em;
 }
+
 .backToTop {
   bottom: 50px;
   right: 50px;
@@ -437,14 +444,17 @@ a {
   width: 100%;
   height: 100%;
   display: flex;
+  flex-direction: column-reverse;
   align-items: center;
   justify-content: center;
+  gap: 20px;
   transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1)
 }
 
 .card .front-content p {
   font-size: 32px;
   font-weight: 700;
+  text-align: center;
   opacity: 1;
   /* background: linear-gradient(-45deg, #8338ec 0%, #ff0f7b 100% ); */
   background: linear-gradient(-45deg, #474747 0%, #FF6500 100% );
@@ -823,7 +833,7 @@ input:-webkit-autofill {
   }
 
   .json-code:hover .closing-bracket {
-    transform: translate(2em, 1.5em);
+    transform: translate(0.1em, 1.5em);
   }
   .json-code:hover #role-section {
     width: 17em;
