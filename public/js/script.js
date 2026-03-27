@@ -1,59 +1,59 @@
-document.addEventListener("DOMContentLoaded", function () {
-    document.querySelectorAll(".reg-text").forEach(el => {
-        el.classList.remove("loaded"); // Xóa trạng thái cũ
-        setTimeout(() => {
-            el.classList.add("loaded"); // Kích hoạt hiệu ứng lại
-        }, 100); // Đợi 100ms để đảm bảo hiệu ứng chạy lại
-    });
-});
+// document.addEventListener("DOMContentLoaded", function () {
+//     document.querySelectorAll(".reg-text").forEach(el => {
+//         el.classList.remove("loaded"); // Xóa trạng thái cũ
+//         setTimeout(() => {
+//             el.classList.add("loaded"); // Kích hoạt hiệu ứng lại
+//         }, 100); // Đợi 100ms để đảm bảo hiệu ứng chạy lại
+//     });
+// });
 
-//auto type text
-document.addEventListener("DOMContentLoaded", function () {
-    const keyElement = document.getElementById("typing-key");
-    const colonElement = document.getElementById("colon");
-    const valueElement = document.getElementById("typing-value");
-    const cursor = document.querySelector(".cursor");
+// //auto type text
+// document.addEventListener("DOMContentLoaded", function () {
+//     const keyElement = document.getElementById("typing-key");
+//     const colonElement = document.getElementById("colon");
+//     const valueElement = document.getElementById("typing-value");
+//     const cursor = document.querySelector(".cursor");
 
-    const keyText = '"name"';
-    const colonText = ": ";
-    const valueText = '"DungNguyen"';
+//     const keyText = '"name"';
+//     const colonText = ": ";
+//     const valueText = '"DungNguyen"';
     
-    let index = 0;
+//     let index = 0;
 
-    function typeKey() {
-        if (index < keyText.length) {
-            keyElement.innerHTML += keyText[index];
-            index++;
-            setTimeout(typeKey, 100);
-        } else {
-            index = 0;
-            setTimeout(typeColon, 100);
-        }
-    }
+//     function typeKey() {
+//         if (index < keyText.length) {
+//             keyElement.innerHTML += keyText[index];
+//             index++;
+//             setTimeout(typeKey, 100);
+//         } else {
+//             index = 0;
+//             setTimeout(typeColon, 100);
+//         }
+//     }
 
-    function typeColon() {
-        if (index < colonText.length) {
-            colonElement.innerHTML += colonText[index];
-            index++;
-            setTimeout(typeColon, 100);
-        } else {
-            index = 0;
-            setTimeout(typeValue, 100);
-        }
-    }
+//     function typeColon() {
+//         if (index < colonText.length) {
+//             colonElement.innerHTML += colonText[index];
+//             index++;
+//             setTimeout(typeColon, 100);
+//         } else {
+//             index = 0;
+//             setTimeout(typeValue, 100);
+//         }
+//     }
 
-    function typeValue() {
-        if (index < valueText.length) {
-            valueElement.innerHTML += valueText[index];
-            index++;
-            setTimeout(typeValue, 100);
-        } else {
-            cursor.style.display = "none"; // Ẩn con trỏ khi gõ xong
-        }
-    }
+//     function typeValue() {
+//         if (index < valueText.length) {
+//             valueElement.innerHTML += valueText[index];
+//             index++;
+//             setTimeout(typeValue, 100);
+//         } else {
+//             cursor.style.display = "none"; // Ẩn con trỏ khi gõ xong
+//         }
+//     }
 
-    setTimeout(typeKey, 500);
-});
+//     setTimeout(typeKey, 500);
+// });
 
 const backToTopButton = document.getElementById("backToTop");
 

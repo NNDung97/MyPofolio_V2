@@ -99,9 +99,21 @@ document.querySelector(".scrolldown").addEventListener("click", () => {
   });
 });
 
+gsap.to(".scrolldown", {
+  y: 300,
+  opacity: 0,
+  ease: "none",
+  scrollTrigger: {
+    trigger: '.hero',
+    start: 'top top',
+    end: 'bottom top',
+    scrub: 0.6
+  }
+});
+
 gsap.to("#canvas", {
   y: "+=300", // Canvas sẽ di chuyển xuống 300px khi cuộn
-  ease: "none",
+  ease: "power1.inOut",
   scrollTrigger: {
       trigger: "#home",
       start: "top top",
