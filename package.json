@@ -18,6 +18,7 @@
     "express": "^4.21.2",
     "gsap": "^3.12.7",
     "nodemailer": "^6.10.0",
-    "parallax-js": "^3.1.0"
+    "parallax-js": "^3.1.0",
+    "resend": "^6.9.4"
   }
 }

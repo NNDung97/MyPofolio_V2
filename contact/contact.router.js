@@ -1,25 +1,53 @@
 import express from "express";
-import { sendContactEmail } from "./contact.js"; // Thay require bằng import
+import { sendContactEmail } from "./contact.js";
 
 const router = express.Router();
 
 router.post("/contact", async (req, res) => {
-    const { name, email, message } = req.body;
+  const { name, email, message } = req.body;
 
-    if (!name || !email || !message) {
-        return res.status(400).json({ error: "Please fill all required fields." });
+  // ✅ Validate input
+  if (!name || !email || !message) {
+    return res.status(400).json({
+      success: false,
+      error: "Please fill all required fields.",
+    });
+  }
+
+  // (optional) validate email format
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    return res.status(400).json({
+      success: false,
+      error: "Invalid email format.",
+    });
+  }
+
+  try {
+    const result = await sendContactEmail(name, email, message);
+
+    if (result.success) {
+      return res.status(200).json({
+        success: true,
+        message: result.message,
+      });
     }
 
-    try {
-        const result = await sendContactEmail(name, email, message);
-        if (result.success) {
-            res.status(200).json({ message: result.message });
-        } else {
-            res.status(500).json({ error: result.message });
-        }
-    } catch (error) {
-        res.status(500).json({ error: "Internal server error" });
-    }
+    console.error("❌ Send mail failed:", result.error);
+
+    return res.status(500).json({
+      success: false,
+      error: result.message,
+    });
+
+  } catch (error) {
+    console.error("❌ Internal error:", error);
+
+    return res.status(500).json({
+      success: false,
+      error: "Internal server error",
+    });
+  }
 });
 
 export default router;

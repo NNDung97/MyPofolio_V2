@@ -1,55 +1,42 @@
-import nodemailer from "nodemailer";
+import { Resend } from "resend";
+import dotenv from "dotenv";
+dotenv.config();
+
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function sendContactEmail(name, email, message) {
-        console.log("🔹 Email User:", process.env.EMAIL_USER);
-        console.log("🔹 Email Pass:", process.env.EMAIL_PASS ? "Loaded" : "Not Loaded");
-        try {
-            const transporter = nodemailer.createTransport({
-                service: "gmail",
-                auth: {
-                    user: process.env.EMAIL_USER,
-                    pass: process.env.EMAIL_PASS,
-                },
-            });
-            transporter.verify((error, success) => {
-                if (error) {
-                    console.error("❌ SMTP Connection Failed:", error);
-                } else {
-                    console.log("✅ SMTP Connection Successful!");
-                }
-            });
-                const mailOptions = {
-                from: email,
-                to: process.env.EMAIL_USER,
-                subject: `New Contact Request from ${name}`,
-                text: `Name: ${name}\nEmail: ${email}\nMessage: ${message}`,
-            };
+  console.log("🔹 Resend API Key:", process.env.RESEND_API_KEY ? "Loaded" : "Not Loaded");
 
-            try {
-                await transporter.sendMail(mailOptions);
-                return { success: true, message: "Email sent successfully!" };
-            } catch (error) {
-                return { success: false, message: "Failed to send email.", error };
-            }
-        } catch (error) {
-            console.error("❌ Error sending email:", error);
-            return { success: false, message: "Failed to send email.", error: error.message };
-        }
-    // console.log("🔹 Email User:", process.env.EMAIL_USER);
-    // console.log("🔹 Email Pass:", process.env.EMAIL_PASS ? "Loaded" : "Not Loaded");
-    // console.log("🔹 Nodemailer config:", transporter.options);
+  try {
+    const response = await resend.emails.send({
+      from: "Portfolio Contact <onboarding@resend.dev>", 
+      to: process.env.EMAIL_USER, // email nhận
+      subject: `New Contact Request from ${name}`,
+      text: `Name: ${name}\nEmail: ${email}\nMessage: ${message}`,
+      reply_to: email, //reply trả lời user
+    });
 
-    // const mailOptions = {
-    //     from: email,
-    //     to: process.env.EMAIL_USER,
-    //     subject: `New Contact Request from ${name}`,
-    //     text: `Name: ${name}\nEmail: ${email}\nMessage: ${message}`,
-    // };
+    if (response.error) {
+      console.error("❌ Resend Error:", response.error);
+      return {
+        success: false,
+        message: "Failed to send email.",
+        error: response.error,
+      };
+    }
 
-    // try {
-    //     await transporter.sendMail(mailOptions);
-    //     return { success: true, message: "Email sent successfully!" };
-    // } catch (error) {
-    //     return { success: false, message: "Failed to send email.", error };
-    // }
+    console.log("✅ Email sent:", response.data);
+    return {
+      success: true,
+      message: "Email sent successfully!",
+    };
+
+  } catch (error) {
+    console.error("❌ Error sending email:", error);
+    return {
+      success: false,
+      message: "Failed to send email.",
+      error: error.message,
+    };
+  }
 }
